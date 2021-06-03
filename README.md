@@ -1,4 +1,4 @@
-# SolastaRageWarriorFighterSubclass
+# SolastaAHBarbarianClass
 
 My Mod Description
 

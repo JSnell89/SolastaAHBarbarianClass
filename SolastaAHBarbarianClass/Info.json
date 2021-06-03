@@ -1,0 +1,13 @@
+{
+	"Id": "SolastaAHBarbarianClass",
+	"DisplayName": "SolastaAHBarbarianClass",
+	"Author": "jsnell89",
+	"Version": "0.0.1",
+	"ManagerVersion": "0.23.4",
+	"Requirements": [ "SolastaModApi" ],
+	"LoadAfter": [ "SolastaModApi" ],
+	"AssemblyName": "SolastaAHBarbarianClass.dll",
+	"EntryMethod": "SolastaAHBarbarianClass.Main.Load",
+	"Repository": "https://raw.githubusercontent.com/jsnell89/SolastaAHBarbarianClass/main/SolastaAHBarbarianClass/Repository.json",
+	"HomePage": "https://www.nexusmods.com/solastacrownofthemagister/mods/XX"
+}

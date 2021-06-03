@@ -7,10 +7,10 @@ using HarmonyLib;
 using I2.Loc;
 using SolastaModApi;
 using SolastaModApi.Extensions;
-using SolastaRageWarriorFighterSubclass;
+using SolastaAHBarbarianClass;
 using System.Collections.Generic;
 
-namespace SolastaRageWarriorFighterSubclass
+namespace SolastaAHBarbarianClass
 {
     public class Main
     {
@@ -22,12 +22,12 @@ namespace SolastaRageWarriorFighterSubclass
 
         internal static void LoadTranslations()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo($@"{UnityModManager.modsPath}/SolastaRageWarriorFighterSubclass");
+            DirectoryInfo directoryInfo = new DirectoryInfo($@"{UnityModManager.modsPath}/SolastaAHBarbarianClass");
             FileInfo[] files = directoryInfo.GetFiles($"Translations-??.txt");
 
             foreach (var file in files)
             {
-                var filename = $@"{UnityModManager.modsPath}/SolastaRageWarriorFighterSubclass/{file.Name}";
+                var filename = $@"{UnityModManager.modsPath}/SolastaAHBarbarianClass/{file.Name}";
                 var code = file.Name.Substring(13, 2);
                 var languageSourceData = LocalizationManager.Sources[0];
                 var languageIndex = languageSourceData.GetLanguageIndexFromCode(code);
@@ -71,7 +71,7 @@ namespace SolastaRageWarriorFighterSubclass
 
         internal static void ModEntryPoint()
         {
-            SolastaRageWarriorFighterSubclass.BuildAndAddSubclass();
+            AHBarbarianClassBuilder.BuildAndAddClassToDB();
         }
     }
 }
