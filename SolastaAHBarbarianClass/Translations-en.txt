@@ -6,8 +6,8 @@ Subclass/&AHBarbarianSubclassPathOfTheBearTitle	Path of the bear
 Subclass/&AHBarbarianSubclassPathOfTheBearDescription You follow the path of the bear to mightily stand against all foes and resist all damage while raging.
 Feature/&AHBarbarianClassSkillPointPoolTitle	Barbarian skills
 Feature/&AHBarbarianClassSkillPointPoolDescription	Barbarian can be proficient in two of Animal Handling, Athletics, Intimidation, Nature, Perception, or Survival
-Feature/&AHBarbarianClassAHBarbarianClassDangerSenseDexteritySavingThrowAffinityTitle	Danger Sense
-Feature/&AHBarbarianClassAHBarbarianClassDangerSenseDexteritySavingThrowAffinityDescription	Advantage on Dexterity Saving Throws.
+Feature/&AHBarbarianClassDangerSenseDexteritySavingThrowAffinityTitle	Danger Sense
+Feature/&AHBarbarianClassDangerSenseDexteritySavingThrowAffinityDescription	Advantage on Dexterity Saving Throws.
 Feature/&AHBarbarianClassFastMovementMovementAffinityTitle	Fast movement
 Feature/&AHBarbarianClassFastMovementMovementAffinityDescription Your walking speed increases 10 ft
 Feature/&AHBarbarianClassRageClassPowerTitle	Rage
@@ -28,3 +28,5 @@ Feature/&AHBarbarianClassRageClassDamageBonusAttackModifierTitle Rage Damage
 Feature/&AHBarbarianClassRageClassDamageBonusAttackModifierDescription	Rage damage bonus of +2 (+3 at level 9)
 Feature/&AHBarbarianClassInitiativeAdvantageTitle Feral Instinct
 Feature/&AHBarbarianClassInitiativeAdvantageDescription Your instincts are so honed that you have advantage on initiative rolls.
+Feature/&AHBarbarianClassUnarmoredDefenseTitle	Unarmored Defense
+Feature/&AHBarbarianClassUnarmoredDefenseDescription	You gain +3 to your armor class when you aren't wearing armor or using a shield.  (Mod note doing this based on Constitution or using a shield doesn't seem possible at the moment.)

@@ -56,6 +56,7 @@ namespace SolastaAHBarbarianClass
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyFighterWeapon, 1)); //Same weapons as fighter :)
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassSkillPointPoolBuilder.AHBarbarianClassSkillPointPool, 1)); //Custom skills
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassRageClassPowerBuilder.RageClassPower, 1));
+            Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassUnarmoredDefenseBuilder.AHBarbarianClassUnarmoredDefense, 1));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionPowers.PowerReckless, 2));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassDangerSenseDexteritySavingThrowAffinityBuilder.AHBarbarianClassDangerSenseDexteritySavingThrowAffinity, 2)); //Not as restrictive as true danger sense
             //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassRageClassPowerAdditionalUse1Builder.RageClassPower, 3)); //Add additional uses through subclasses since most times they alter the rage power anyways.
@@ -145,8 +146,8 @@ namespace SolastaAHBarbarianClass
 
         protected AHBarbarianClassDangerSenseDexteritySavingThrowAffinityBuilder(string name, string guid) : base(DatabaseHelper.FeatureDefinitionSavingThrowAffinitys.SavingThrowAffinityCreedOfArun, name, guid)
         {
-            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassAHBarbarianClassDangerSenseDexteritySavingThrowAffinityTitle";
-            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassAHBarbarianClassDangerSenseDexteritySavingThrowAffinityDescription";
+            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassDangerSenseDexteritySavingThrowAffinityTitle";
+            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassDangerSenseDexteritySavingThrowAffinityDescription";
 
             //Just always gives Dex save ADV since making it work contextually with the effect originating within 30ft would require too much work.
             //The condition restrictions might be easier to implement, but I won't bother for now at least.
@@ -164,6 +165,32 @@ namespace SolastaAHBarbarianClass
 
         public static FeatureDefinitionSavingThrowAffinity AHBarbarianClassDangerSenseDexteritySavingThrowAffinity = CreateAndAddToDB(AHBarbarianClassDangerSenseDexteritySavingThrowAffinityName, AHBarbarianClassDangerSenseDexteritySavingThrowAffinityNameGuid);
     }
+
+    internal class AHBarbarianClassUnarmoredDefenseBuilder : BaseDefinitionBuilder<FeatureDefinitionAttributeModifier>
+    {
+        const string AHBarbarianClassUnarmoredDefenseName = "AHBarbarianClassUnarmoredDefenseAttributeModifier";
+        const string AHBarbarianClassUnarmoredDefenseNameGuid = "8bd48db9-47b9-41ab-a033-941ff09c83a3";
+
+        protected AHBarbarianClassUnarmoredDefenseBuilder(string name, string guid) : base(DatabaseHelper.FeatureDefinitionAttributeModifiers.AttributeModifierArmorPlus3, name, guid)
+        {
+            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassUnarmoredDefenseTitle";
+            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassUnarmoredDefenseDescription";
+
+            //Doesn't seem to be anything that can modify AC by an attribute
+            //Also doesn't seem to be something that will only apply when no armor but still allow shields
+            Definition.SetModifiedAttribute("ArmorClass");
+            Definition.SetModifierType2(FeatureDefinitionAttributeModifier.AttributeModifierOperation.Additive);
+            Definition.SetModifierValue(3);
+            Definition.SetSituationalContext(RuleDefinitions.SituationalContext.NotWearingArmorOrShield);
+        }
+
+        public static FeatureDefinitionAttributeModifier CreateAndAddToDB(string name, string guid)
+            => new AHBarbarianClassUnarmoredDefenseBuilder(name, guid).AddToDB();
+
+        public static FeatureDefinitionAttributeModifier AHBarbarianClassUnarmoredDefense = CreateAndAddToDB(AHBarbarianClassUnarmoredDefenseName, AHBarbarianClassUnarmoredDefenseNameGuid);
+    }
+
+    
 
     internal class AHBarbarianClassFastMovementMovementAffinityBuilder : BaseDefinitionBuilder<FeatureDefinitionMovementAffinity>
     {
@@ -582,70 +609,4 @@ namespace SolastaAHBarbarianClass
         public static FeatureDefinitionAttackModifier RageClassDamageBonusAttackLevel9Modifier
             = CreateAndAddToDB(RageClassDamageBonusAttackModifierName, RageClassDamageBonusAttackModifierNameGuid);
     }
-
-    //internal class AHBarbarianClassBuilder2 : CharacterClassDefinitionBuilder
-    //{
-    //    const string AHBarbarianClassName = "AHBarbarianClass2";
-    //    const string AHBarbarianClassNameGuid = "f32b88a0-2354-4a0d-aafa-5118d9cc7501";
-    //    const string AHBarbarianClassSubclassesGuid = "e11377bc-5a49-42a9-be0e-b19645a88935";
-
-    //    protected AHBarbarianClassBuilder2(string name, string guid) : base(name, guid)
-    //    {
-    //        CharacterClassDefinitionBuilder characterClassDefinitionBuilder = new CharacterClassDefinitionBuilder(AHBarbarianClassName, AHBarbarianClassNameGuid);
-    //        characterClassDefinitionBuilder.SetHitDice(RuleDefinitions.DieType.D2);
-    //        characterClassDefinitionBuilder.AddPersonality(DatabaseHelper.PersonalityFlagDefinitions.GpCombat, 3);
-    //        characterClassDefinitionBuilder.AddPersonality(DatabaseHelper.PersonalityFlagDefinitions.GpExplorer, 1);
-    //        characterClassDefinitionBuilder.AddPersonality(DatabaseHelper.PersonalityFlagDefinitions.Normal, 3);
-    //        characterClassDefinitionBuilder.SetIngredientGatheringOdds(5);
-    //        characterClassDefinitionBuilder.SetBattleAI(DatabaseHelper.DecisionPackageDefinitions.DefaultMeleeWithBackupRangeDecisions);
-    //        characterClassDefinitionBuilder.SetAnimationId(AnimationDefinitions.ClassAnimationId.Fighter);
-    //        characterClassDefinitionBuilder.SetAbilityScorePriorities("Strength", "Constitution", "Dexterity", "Wisdom", "Charisma", "Intelligence");
-    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.Athletics);
-    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.Acrobatics);
-    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.AnimalHandling);
-    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.Perception);
-    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.Survival);
-    //        characterClassDefinitionBuilder.AddFeatPreference(DatabaseHelper.FeatDefinitions.RushToBattle);
-    //        characterClassDefinitionBuilder.AddFeatPreference(DatabaseHelper.FeatDefinitions.EagerForBattle);
-    //        characterClassDefinitionBuilder.AddFeatPreference(DatabaseHelper.FeatDefinitions.FollowUpStrike);
-    //        characterClassDefinitionBuilder.SetPictogram(DatabaseHelper.CharacterClassDefinitions.Fighter.ClassPictogramReference);
-    //        GuiPresentationBuilder guiPresentationBuilder = new GuiPresentationBuilder("Class/&AHBarbarianClassDescription", "Class/&AHBarbarianClassTitle");
-    //        guiPresentationBuilder.SetSortOrder(1);
-    //        guiPresentationBuilder.SetSpriteReference(new AssetReferenceSprite(DatabaseHelper.CharacterClassDefinitions.Fighter.GuiPresentation.SpriteReference.AssetGUID));
-    //        characterClassDefinitionBuilder.SetGuiPresentation(guiPresentationBuilder.Build());
-    //        List<CharacterClassDefinition.HeroEquipmentOption> list = new List<CharacterClassDefinition.HeroEquipmentOption>();
-    //        CharacterClassDefinition.HeroEquipmentOption item = EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Greataxe, EquipmentDefinitions.OptionWeaponMartialMeleeChoice, 1);
-    //        list.Add(item);
-    //        characterClassDefinitionBuilder.AddEquipmentRow(list);
-    //        List<CharacterClassDefinition.HeroEquipmentOption> list2 = new List<CharacterClassDefinition.HeroEquipmentOption>();
-    //        List<CharacterClassDefinition.HeroEquipmentOption> list3 = new List<CharacterClassDefinition.HeroEquipmentOption>();
-    //        list2.Add(EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Handaxe, EquipmentDefinitions.OptionWeaponSimpleChoice, 2));
-    //        list3.Add(EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Mace, EquipmentDefinitions.OptionWeaponSimpleChoice, 1));
-    //        characterClassDefinitionBuilder.AddEquipmentRow(list2, list3);
-    //        characterClassDefinitionBuilder.AddEquipmentRow(new List<CharacterClassDefinition.HeroEquipmentOption>
-    //        {
-    //            EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Javelin, EquipmentDefinitions.OptionWeaponSimpleChoice, 4),
-    //            EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.ExplorerPack, EquipmentDefinitions.OptionStarterPack, 1)
-    //        });
-    //        characterClassDefinitionBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyClericArmor, 1);
-    //        characterClassDefinitionBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyFighterWeapon, 1);
-    //        characterClassDefinitionBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyFighterSavingThrow, 1);
-    //        characterClassDefinitionBuilder.AddFeatureAtLevel(AHBarbarianClassSkillPointPoolBuilder.AHBarbarianClassSkillPointPool, 1);
-            
-    //        var subclassChoicesGuiPresentation = new GuiPresentation();
-    //        subclassChoicesGuiPresentation.Title = "Feature/&AHBarbarianSubclassPathTitle";
-    //        subclassChoicesGuiPresentation.Description = "Class/&AHBarbarianSubclassPathDescription";
-    //        FeatureDefinitionSubclassChoice featureDefinitionSubclassChoice = this.BuildSubclassChoice(3, "Path", false, "SubclassChoiceBarbarianSpecialistArchetypes", subclassChoicesGuiPresentation, AHBarbarianClassSubclassesGuid);
-    //        CharacterSubclassDefinition characterSubclassDefinition = AHBarbarianSubClassPathOfTheBear.Build();
-    //        featureDefinitionSubclassChoice.Subclasses.Add(characterSubclassDefinition.Name);
-
-    //        //TODO level 3 and up features
-    //    }
-
-    //    public static void BuildAndAddClassToDB()
-    //    {
-    //        var barbarianClass = new AHBarbarianClassBuilder2(AHBarbarianClassName, AHBarbarianClassNameGuid).AddToDB();
-
-    //    }
-    //}
 }
