@@ -1,5 +1,5 @@
 Class/&AHBarbarianClassTitle Barbarian
-Class/&AHBarbarianClassDescription Barbarian rage machine
+Class/&AHBarbarianClassDescription For some, there is only rage. In the ways of their people, in the fury of their passion, in the howl of battle, conflict is all these brutal souls know. Savages, hired muscle, masters of vicious martial techniques, they are not soldiers or professional warriors—they are the battle possessed, creatures of slaughter and spirits of war. Known as barbarians, these warmongers know little of training, preparation, or the rules of warfare; for them, only the moment exists, with the foes that stand before them and the knowledge that the next moment might hold their death. They possess a sixth sense in regard to danger and the endurance to weather all that might entail. These brutal warriors might rise from all walks of life, both civilized and savage, though whole societies embracing such philosophies roam the wild places of the world. Within barbarians storms the primal spirit of battle, and woe to those who face their rage.
 Subclass/&AHBarbarianSubclassPathTitle	Path
 Subclass/&AHBarbarianSubclassPathDescription	Select a barbarian path
 Subclass/&AHBarbarianSubclassPathOfTheBearTitle	Path of the bear
@@ -29,4 +29,7 @@ Feature/&AHBarbarianClassRageClassDamageBonusAttackModifierDescription	Rage dama
 Feature/&AHBarbarianClassInitiativeAdvantageTitle Feral Instinct
 Feature/&AHBarbarianClassInitiativeAdvantageDescription Your instincts are so honed that you have advantage on initiative rolls.
 Feature/&AHBarbarianClassUnarmoredDefenseTitle	Unarmored Defense
-Feature/&AHBarbarianClassUnarmoredDefenseDescription	You gain +3 to your armor class when you aren't wearing armor or using a shield.  (Mod note doing this based on Constitution or using a shield doesn't seem possible at the moment.)
+Feature/&AHBarbarianClassUnarmoredDefenseDescription	You gain +3 to your armor class when you aren't wearing armor or using a shield.  (Mod note doing this based on Constitution or allowing a shield doesn't seem possible at the moment.)
+Stage/&SubclassSelectionStagePathHeader Barbarian Paths
+Stage/&SubclassSelectionStagePathTitle Barbarian Path
+Stage/&SubclassSelectionStagePathFeatures Path features

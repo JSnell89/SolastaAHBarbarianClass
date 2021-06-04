@@ -27,12 +27,13 @@ namespace SolastaAHBarbarianClass
             Definition.SetRequiresDeity(false);
 
             Definition.AbilityScoresPriority.AddRange(fighter.AbilityScoresPriority);
-            Definition.EquipmentRows.AddRange(fighter.EquipmentRows);
             Definition.FeatAutolearnPreference.AddRange(fighter.FeatAutolearnPreference);
             Definition.PersonalityFlagOccurences.AddRange(fighter.PersonalityFlagOccurences);
             Definition.SkillAutolearnPreference.AddRange(fighter.SkillAutolearnPreference);
             Definition.ToolAutolearnPreference.AddRange(fighter.ToolAutolearnPreference);
 
+
+            Definition.EquipmentRows.AddRange(fighter.EquipmentRows);
             Definition.EquipmentRows.Clear();
             List<CharacterClassDefinition.HeroEquipmentOption> list = new List<CharacterClassDefinition.HeroEquipmentOption>();
             List<CharacterClassDefinition.HeroEquipmentOption> list2 = new List<CharacterClassDefinition.HeroEquipmentOption>();
@@ -59,30 +60,33 @@ namespace SolastaAHBarbarianClass
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassUnarmoredDefenseBuilder.AHBarbarianClassUnarmoredDefense, 1));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionPowers.PowerReckless, 2));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassDangerSenseDexteritySavingThrowAffinityBuilder.AHBarbarianClassDangerSenseDexteritySavingThrowAffinity, 2)); //Not as restrictive as true danger sense
-            //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassRageClassPowerAdditionalUse1Builder.RageClassPower, 3)); //Add additional uses through subclasses since most times they alter the rage power anyways.
+            //Level 3 Additional rage use - Add additional uses through subclasses since most times the subclass alters the rage power anyways.
             //Subclass feature at level 3
+            var subclassChoicesGuiPresentation = new GuiPresentation();
+            subclassChoicesGuiPresentation.Title = "Subclass/&AHBarbarianSubclassPathTitle";
+            subclassChoicesGuiPresentation.Description = "Subclass/&AHBarbarianSubclassPathDescription";
+            BarbarianFeatureDefinitionSubclassChoice = this.BuildSubclassChoice(3, "Path", false, "SubclassChoiceBarbarianSpecialistArchetypes", subclassChoicesGuiPresentation, AHBarbarianClassSubclassesGuid);
+
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 4));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionAttributeModifiers.AttributeModifierFighterExtraAttack, 5));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassFastMovementMovementAffinityBuilder.FastMovementMovementAffinity, 5));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassFastMovementMovementPowerForLevelUpDescriptionBuilder.FastMovementMovementPowerForLevelUpDescription, 5));
-            //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassRageClassPowerAdditionalUse2Builder.RageClassPower, 6)); //Add additional rage uses through subclasses since most times they alter the rage power anyways.
+            //Level 6 Additional rage use - Add additional uses through subclasses since most times the subclass alters the rage power anyways.
             //SubclassFeature at level 6
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionCombatAffinitys.CombatAffinityEagerForBattle, 7));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassInitiativeAdvantagePowerForLevelUpDescriptionBuilder.InitiativeAdvantagePowerForLevelUpDescription, 7));
             //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionCampAffinitys.CampAffinityFeatFocusedSleeper, 7)); //Could use this to helps not be asleep in camp maybe?  Could add the full Oblivion domain thing? Not sure
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 8));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionAttributeModifiers.AttributeModifierMartialChampionImprovedCritical, 9)); //Ideally we could add extra damage on crit but I don't think that's possible
+            //Subclass feature at level 10
 
-            var subclassChoicesGuiPresentation = new GuiPresentation();
-            subclassChoicesGuiPresentation.Title = "Subclass/&AHBarbarianSubclassPathTitle";
-            subclassChoicesGuiPresentation.Description = "Subclass/&AHBarbarianSubclassPathDescription";
-            BarbarianFeatureDefinitionSubclassChoice = this.BuildSubclassChoice(3, "Path", false, "SubclassChoiceBarbarianSpecialistArchetypes", subclassChoicesGuiPresentation, AHBarbarianClassSubclassesGuid);
+            
         }
 
         public static void BuildAndAddClassToDB()
         {
             var barbarianClass = new AHBarbarianClassBuilder(AHBarbarianClassName, AHBarbarianClassNameGuid).AddToDB();
-            //Might need to add subclasses after the calss is in the DB?
+            //Might need to add subclasses after the class is in the DB?
             CharacterSubclassDefinition characterSubclassDefinition = AHBarbarianSubClassPathOfTheBear.Build();
             BarbarianFeatureDefinitionSubclassChoice.Subclasses.Add(characterSubclassDefinition.Name);
         }
@@ -210,6 +214,9 @@ namespace SolastaAHBarbarianClass
             = CreateAndAddToDB(FastMovementMovementAffinityName, FastMovementMovementAffinityNameGuid);
     }
 
+    /// <summary>
+    /// 'Blank' power for the level up description
+    /// </summary>
     internal class AHBarbarianClassFastMovementMovementPowerForLevelUpDescriptionBuilder : BaseDefinitionBuilder<FeatureDefinitionPower>
     {
         const string FastMovementMovementAffinityName = "AHBarbarianClassFastMovementMovementPowerForLevelUpDescription";
@@ -235,6 +242,10 @@ namespace SolastaAHBarbarianClass
             = CreateAndAddToDB(FastMovementMovementAffinityName, FastMovementMovementAffinityNameGuid);
     }
 
+
+    /// <summary>
+    /// 'Blank' power for the level up description
+    /// </summary>
     internal class AHBarbarianClassInitiativeAdvantagePowerForLevelUpDescriptionBuilder : BaseDefinitionBuilder<FeatureDefinitionPower>
     {
         const string FastMovementMovementAffinityName = "AHBarbarianClassInitiativeAdvantagePowerForLevelUpDescription";
