@@ -1,5 +1,7 @@
 ﻿using SolastaModApi;
 using SolastaModApi.Extensions;
+using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
 using static FeatureDefinitionSavingThrowAffinity;
 
 namespace SolastaAHBarbarianClass
@@ -15,6 +17,7 @@ namespace SolastaAHBarbarianClass
             var fighter = DatabaseHelper.CharacterClassDefinitions.Fighter;
             Definition.GuiPresentation.Title = "Class/&AHBarbarianClassTitle";
             Definition.GuiPresentation.Description = "Class/&AHBarbarianClassDescription";
+            Definition.GuiPresentation.SetSpriteReference(fighter.GuiPresentation.SpriteReference);
 
             Definition.SetClassAnimationId(AnimationDefinitions.ClassAnimationId.Fighter);
             Definition.SetClassPictogramReference(fighter.ClassPictogramReference);
@@ -29,7 +32,24 @@ namespace SolastaAHBarbarianClass
             Definition.PersonalityFlagOccurences.AddRange(fighter.PersonalityFlagOccurences);
             Definition.SkillAutolearnPreference.AddRange(fighter.SkillAutolearnPreference);
             Definition.ToolAutolearnPreference.AddRange(fighter.ToolAutolearnPreference);
-            
+
+            Definition.EquipmentRows.Clear();
+            List<CharacterClassDefinition.HeroEquipmentOption> list = new List<CharacterClassDefinition.HeroEquipmentOption>();
+            List<CharacterClassDefinition.HeroEquipmentOption> list2 = new List<CharacterClassDefinition.HeroEquipmentOption>();
+            list.Add(EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Greataxe, EquipmentDefinitions.OptionWeapon, 1));
+            list2.Add(EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Greataxe, EquipmentDefinitions.OptionWeaponMartialChoice, 1));
+            List<CharacterClassDefinition.HeroEquipmentOption> list3 = new List<CharacterClassDefinition.HeroEquipmentOption>();
+            List<CharacterClassDefinition.HeroEquipmentOption> list4 = new List<CharacterClassDefinition.HeroEquipmentOption>();
+            list3.Add(EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Handaxe, EquipmentDefinitions.OptionWeapon, 2));
+            list4.Add(EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Mace, EquipmentDefinitions.OptionWeaponSimpleChoice, 1));
+            this.AddEquipmentRow(list, list2);
+            this.AddEquipmentRow(list3, list4);
+            this.AddEquipmentRow(new List<CharacterClassDefinition.HeroEquipmentOption>
+            {
+                EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Javelin, EquipmentDefinitions.OptionWeapon, 4),
+                EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.ExplorerPack, EquipmentDefinitions.OptionStarterPack, 1)
+            });
+
             Definition.FeatureUnlocks.Clear();
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyFighterSavingThrow, 1)); //Same saves as fighter :)
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyClericArmor, 1)); //Same armor as cleric :)
@@ -40,33 +60,33 @@ namespace SolastaAHBarbarianClass
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassDangerSenseDexteritySavingThrowAffinityBuilder.AHBarbarianClassDangerSenseDexteritySavingThrowAffinity, 2)); //Not as restrictive as true danger sense
             //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassRageClassPowerAdditionalUse1Builder.RageClassPower, 3)); //Add additional uses through subclasses since most times they alter the rage power anyways.
             //Subclass feature at level 3
-
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 4));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionAttributeModifiers.AttributeModifierFighterExtraAttack, 5));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassFastMovementMovementAffinityBuilder.FastMovementMovementAffinity, 5));
-            //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassRageClassPowerAdditionalUse2Builder.RageClassPower, 6)); //Add additional uses through subclasses since most times they alter the rage power anyways.
-
+            Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassFastMovementMovementPowerForLevelUpDescriptionBuilder.FastMovementMovementPowerForLevelUpDescription, 5));
+            //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassRageClassPowerAdditionalUse2Builder.RageClassPower, 6)); //Add additional rage uses through subclasses since most times they alter the rage power anyways.
             //SubclassFeature at level 6
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionCombatAffinitys.CombatAffinityEagerForBattle, 7));
-            //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionCampAffinitys.CampAffinityFeatFocusedSleeper, 7)); //Helps not be surprised in camp I guess?  Could add the full Oblivion domain thing maybe.
-
-            //ADV on init - Also should add can't get surpised if you rage but no idea if that's possible.  Could add the no surprise in camp affinity?
+            Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(AHBarbarianClassInitiativeAdvantagePowerForLevelUpDescriptionBuilder.InitiativeAdvantagePowerForLevelUpDescription, 7));
+            //Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionCampAffinitys.CampAffinityFeatFocusedSleeper, 7)); //Could use this to helps not be asleep in camp maybe?  Could add the full Oblivion domain thing? Not sure
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 8));
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionAttributeModifiers.AttributeModifierMartialChampionImprovedCritical, 9)); //Ideally we could add extra damage on crit but I don't think that's possible
 
             var subclassChoicesGuiPresentation = new GuiPresentation();
-            subclassChoicesGuiPresentation.Title = "Feature/&AHBarbarianSubclassPathTitle";
-            subclassChoicesGuiPresentation.Description = "Class/&AHBarbarianSubclassPathDescription";
-            FeatureDefinitionSubclassChoice featureDefinitionSubclassChoice = this.BuildSubclassChoice(3, "Path", false, "SubclassChoiceBarbarianSpecialistArchetypes", subclassChoicesGuiPresentation, AHBarbarianClassSubclassesGuid);
-            CharacterSubclassDefinition characterSubclassDefinition = AHBarbarianSubClassPathOfTheBear.Build();
-            featureDefinitionSubclassChoice.Subclasses.Add(characterSubclassDefinition.Name);
+            subclassChoicesGuiPresentation.Title = "Subclass/&AHBarbarianSubclassPathTitle";
+            subclassChoicesGuiPresentation.Description = "Subclass/&AHBarbarianSubclassPathDescription";
+            BarbarianFeatureDefinitionSubclassChoice = this.BuildSubclassChoice(3, "Path", false, "SubclassChoiceBarbarianSpecialistArchetypes", subclassChoicesGuiPresentation, AHBarbarianClassSubclassesGuid);
         }
 
         public static void BuildAndAddClassToDB()
         {
             var barbarianClass = new AHBarbarianClassBuilder(AHBarbarianClassName, AHBarbarianClassNameGuid).AddToDB();
-            
+            //Might need to add subclasses after the calss is in the DB?
+            CharacterSubclassDefinition characterSubclassDefinition = AHBarbarianSubClassPathOfTheBear.Build();
+            BarbarianFeatureDefinitionSubclassChoice.Subclasses.Add(characterSubclassDefinition.Name);
         }
+
+        private static FeatureDefinitionSubclassChoice BarbarianFeatureDefinitionSubclassChoice;
     }
 
     public static class AHBarbarianSubClassPathOfTheBear
@@ -84,13 +104,13 @@ namespace SolastaAHBarbarianClass
 
             CharacterSubclassDefinition definition = new CharacterSubclassDefinitionBuilder(AHBarbarianSubClassPathOfTheBearName, AHBarbarianSubClassPathOfTheBearNameGuid)
                     .SetGuiPresentation(subclassGuiPresentation)
-                    .AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionPowers.PowerReckless, 3)
-                    .AddFeatureAtLevel(AHBarbarianClassPathOfBearRageClassPowerBuilder.RageClassPower, 3)
-                    .AddFeatureAtLevel(AHBarbarianClassFastMovementMovementAffinityBuilder.FastMovementMovementAffinity, 7)
-                    .AddFeatureAtLevel(AHBarbarianClassFastMovementMovementPowerForLevelUpDescriptionBuilder.FastMovementMovementPowerForLevelUpDescription, 7)
-                    .AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionAttributeModifiers.AttributeModifierMartialChampionImprovedCritical, 10)
+                    .AddFeatureAtLevel(AHBarbarianClassPathOfBearRageClassPowerBuilder.RageClassPower, 3) // Special rage and increase rage count to 3
+                    //.AddFeatureAtLevel(AHBarbarianClassPathOfBearRageClassPowerBuilder.RageClassPower, 3) // TODO something more?
+                    .AddFeatureAtLevel(AHBarbarianClassPathOfBearRageClassPowerLevel6Builder.RageClassPower, 6) //Up rage count to 4 - Do in subclass since BearRage has its own characteristics
+                    .AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionEquipmentAffinitys.EquipmentAffinityBullsStrength, 6) //Double carry cap
+                    .AddFeatureAtLevel(AHBarbarianClassPathOfBearRageClassPowerLevel9Builder.RageClassPower, 9) //Up damage on rage - Do in subclass since BearRage has its own characteristics
+                    .AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionAbilityCheckAffinitys.AbilityCheckAffinityDwarvenPlateResistShove, 10) //TODO Extra feature totem has commune with nature but not sure what to add here.
                     .AddToDB();
-
 
             return definition;
         }
@@ -106,6 +126,8 @@ namespace SolastaAHBarbarianClass
             Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassSkillPointPoolTitle";
             Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassSkillPointPoolDescription";
 
+            Definition.SetPoolAmount(2);
+            Definition.SetPoolType(HeroDefinitions.PointsPoolType.Skill);
             Definition.RestrictedChoices.Clear();
             Definition.RestrictedChoices.AddRange(new string[] { "AnimalHandling", "Athletics", "Intimidation", "Nature", "Perception", "Survival", });
         }
@@ -129,9 +151,12 @@ namespace SolastaAHBarbarianClass
             //Just always gives Dex save ADV since making it work contextually with the effect originating within 30ft would require too much work.
             //The condition restrictions might be easier to implement, but I won't bother for now at least.
             Definition.AffinityGroups.Clear();
-            var strengthSaveAffinityGroup = new SavingThrowAffinityGroup();
-            strengthSaveAffinityGroup.affinity = RuleDefinitions.CharacterSavingThrowAffinity.Advantage;
-            strengthSaveAffinityGroup.abilityScoreName = "Dexterity";
+            var dexSaveAffinityGroup = new SavingThrowAffinityGroup();
+            dexSaveAffinityGroup.affinity = RuleDefinitions.CharacterSavingThrowAffinity.Advantage;
+            dexSaveAffinityGroup.abilityScoreName = "Dexterity";
+            dexSaveAffinityGroup.savingThrowContext = RuleDefinitions.SavingThrowContext.None;
+            dexSaveAffinityGroup.savingThrowModifierType = ModifierType.AddDice;
+            Definition.AffinityGroups.Add(dexSaveAffinityGroup);
         }
 
         public static FeatureDefinitionSavingThrowAffinity CreateAndAddToDB(string name, string guid)
@@ -168,7 +193,7 @@ namespace SolastaAHBarbarianClass
             Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassFastMovementMovementAffinityTitle";
             Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassFastMovementMovementAffinityDescription";
 
-            Definition.SetRechargeRate(RuleDefinitions.RechargeRate.None); //Short rest for the subclass
+            Definition.SetRechargeRate(RuleDefinitions.RechargeRate.None); 
             Definition.SetActivationTime(RuleDefinitions.ActivationTime.Permanent);
             Definition.SetCostPerUse(1);
             Definition.SetFixedUsesPerRecharge(0);
@@ -183,6 +208,31 @@ namespace SolastaAHBarbarianClass
             = CreateAndAddToDB(FastMovementMovementAffinityName, FastMovementMovementAffinityNameGuid);
     }
 
+    internal class AHBarbarianClassInitiativeAdvantagePowerForLevelUpDescriptionBuilder : BaseDefinitionBuilder<FeatureDefinitionPower>
+    {
+        const string FastMovementMovementAffinityName = "AHBarbarianClassInitiativeAdvantagePowerForLevelUpDescription";
+        const string FastMovementMovementAffinityNameGuid = "b35ba296-477f-4a78-9306-39ad1b2efda9";
+
+        protected AHBarbarianClassInitiativeAdvantagePowerForLevelUpDescriptionBuilder(string name, string guid) : base(DatabaseHelper.FeatureDefinitionPowers.PowerDomainElementalFireBurst, name, guid)
+        {
+            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassInitiativeAdvantageTitle";
+            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassInitiativeAdvantageDescription";
+
+            Definition.SetRechargeRate(RuleDefinitions.RechargeRate.None);
+            Definition.SetActivationTime(RuleDefinitions.ActivationTime.Permanent);
+            Definition.SetCostPerUse(1);
+            Definition.SetFixedUsesPerRecharge(0);
+            Definition.SetShortTitleOverride("Feature/&AHBarbarianClassInitiativeAdvantageTitle");
+            Definition.SetEffectDescription(new EffectDescription());
+        }
+
+        public static FeatureDefinitionPower CreateAndAddToDB(string name, string guid)
+            => new AHBarbarianClassInitiativeAdvantagePowerForLevelUpDescriptionBuilder(name, guid).AddToDB();
+
+        public static FeatureDefinitionPower InitiativeAdvantagePowerForLevelUpDescription
+            = CreateAndAddToDB(FastMovementMovementAffinityName, FastMovementMovementAffinityNameGuid);
+    }
+
     internal class AHBarbarianClassRageClassPowerBuilder : BaseDefinitionBuilder<FeatureDefinitionPower>
     {
         const string RageClassPowerName = "AHBarbarianClassRageClassPower";
@@ -193,7 +243,7 @@ namespace SolastaAHBarbarianClass
             Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassRageClassPowerTitle";
             Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassRageClassPowerDescription";
 
-            Definition.SetRechargeRate(RuleDefinitions.RechargeRate.LongRest); //Short rest for the subclass
+            Definition.SetRechargeRate(RuleDefinitions.RechargeRate.LongRest);
             Definition.SetActivationTime(RuleDefinitions.ActivationTime.BonusAction);
             Definition.SetCostPerUse(1);
             Definition.SetFixedUsesPerRecharge(2);
@@ -240,7 +290,7 @@ namespace SolastaAHBarbarianClass
 
             FeatureDefinitionPowerExtensions.SetOverriddenPower(Definition, AHBarbarianClassRageClassPowerBuilder.RageClassPower);
 
-            Definition.SetRechargeRate(RuleDefinitions.RechargeRate.LongRest); //Short rest for the subclass
+            Definition.SetRechargeRate(RuleDefinitions.RechargeRate.LongRest);
             Definition.SetActivationTime(RuleDefinitions.ActivationTime.BonusAction);
             Definition.SetCostPerUse(1);
             Definition.SetFixedUsesPerRecharge(3); //3 uses at level 3 when this is introduced
@@ -270,6 +320,73 @@ namespace SolastaAHBarbarianClass
 
         public static FeatureDefinitionPower CreateAndAddToDB(string name, string guid)
             => new AHBarbarianClassPathOfBearRageClassPowerBuilder(name, guid).AddToDB();
+
+        public static FeatureDefinitionPower RageClassPower
+            = CreateAndAddToDB(RageClassPowerName, RageClassPowerNameGuid);
+    }
+
+    internal class AHBarbarianClassPathOfBearRageClassPowerLevel6Builder : BaseDefinitionBuilder<FeatureDefinitionPower>
+    {
+        const string RageClassPowerName = "AHBarbarianClassPathOfBearRageClassPowerLevel6";
+        const string RageClassPowerNameGuid = "f5257a1f-758d-494a-9cb9-6b82b38bdb57";
+
+        protected AHBarbarianClassPathOfBearRageClassPowerLevel6Builder(string name, string guid) : base(AHBarbarianClassPathOfBearRageClassPowerBuilder.RageClassPower, name, guid)
+        {
+            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassPathOfBearRageClassPowerLevel6Title";
+            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassPathOfBearRageClassPowerLevel6Description";
+
+            FeatureDefinitionPowerExtensions.SetOverriddenPower(Definition, AHBarbarianClassPathOfBearRageClassPowerBuilder.RageClassPower);
+            Definition.SetFixedUsesPerRecharge(4); //Just increase the use count
+        }
+
+        public static FeatureDefinitionPower CreateAndAddToDB(string name, string guid)
+            => new AHBarbarianClassPathOfBearRageClassPowerLevel6Builder(name, guid).AddToDB();
+
+        public static FeatureDefinitionPower RageClassPower
+            = CreateAndAddToDB(RageClassPowerName, RageClassPowerNameGuid);
+    }
+
+    internal class AHBarbarianClassPathOfBearRageClassPowerLevel9Builder : BaseDefinitionBuilder<FeatureDefinitionPower>
+    {
+        const string RageClassPowerName = "AHBarbarianClassPathOfBearRageClassPowerLevel9";
+        const string RageClassPowerNameGuid = "de884797-52e9-4a86-928c-ac82a4f2f98d";
+
+        protected AHBarbarianClassPathOfBearRageClassPowerLevel9Builder(string name, string guid) : base(AHBarbarianClassPathOfBearRageClassPowerLevel6Builder.RageClassPower, name, guid)
+        {
+            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassPathOfBearRageClassPowerLevel9Title";
+            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassPathOfBearRageClassPowerLevel9Description";
+
+            FeatureDefinitionPowerExtensions.SetOverriddenPower(Definition, AHBarbarianClassPathOfBearRageClassPowerLevel6Builder.RageClassPower);
+            Definition.SetRechargeRate(RuleDefinitions.RechargeRate.LongRest);
+            Definition.SetActivationTime(RuleDefinitions.ActivationTime.BonusAction);
+            Definition.SetCostPerUse(1);
+            Definition.SetFixedUsesPerRecharge(4); //4 uses at level 9
+            Definition.SetShortTitleOverride("Feature/&AHBarbarianClassPathOfBearRageClassPowerTitle");
+
+            //Create the power rage condition - this time Bear With level 9 extra damage
+            EffectForm rageEffect = new EffectForm();
+            rageEffect.ConditionForm = new ConditionForm();
+            rageEffect.FormType = EffectForm.EffectFormType.Condition;
+            rageEffect.ConditionForm.Operation = ConditionForm.ConditionOperation.Add;
+            rageEffect.ConditionForm.ConditionDefinition = AHBarbarianPathOfTheBearRageClassConditionLevel9Builder.RageClassCondition;
+
+            //Add to our new effect
+            EffectDescription newEffectDescription = new EffectDescription();
+            newEffectDescription.Copy(Definition.EffectDescription);
+            newEffectDescription.EffectForms.Clear();
+            newEffectDescription.EffectForms.Add(rageEffect);
+            newEffectDescription.HasSavingThrow = false;
+            newEffectDescription.DurationType = RuleDefinitions.DurationType.Minute;
+            newEffectDescription.DurationParameter = 1;
+            newEffectDescription.SetTargetSide(RuleDefinitions.Side.Ally);
+            newEffectDescription.SetTargetType(RuleDefinitions.TargetType.Self);
+            newEffectDescription.SetCanBePlacedOnCharacter(true);
+
+            Definition.SetEffectDescription(newEffectDescription);
+        }
+
+        public static FeatureDefinitionPower CreateAndAddToDB(string name, string guid)
+            => new AHBarbarianClassPathOfBearRageClassPowerLevel9Builder(name, guid).AddToDB();
 
         public static FeatureDefinitionPower RageClassPower
             = CreateAndAddToDB(RageClassPowerName, RageClassPowerNameGuid);
@@ -315,8 +432,8 @@ namespace SolastaAHBarbarianClass
 
         protected AHBarbarianPathOfTheBearRageClassConditionBuilder(string name, string guid) : base(DatabaseHelper.ConditionDefinitions.ConditionHeraldOfBattle, name, guid)
         {
-            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassRageClassConditionTitle";
-            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassRageClassConditionDescription";
+            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassRageClassBearConditionTitle";
+            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassRageClassBearConditionDescription";
 
             //Resitance to all damage so as not to straight copy Totem bear :)
             Definition.SetAllowMultipleInstances(false);
@@ -363,8 +480,8 @@ namespace SolastaAHBarbarianClass
 
         protected AHBarbarianPathOfTheBearRageClassConditionLevel9Builder(string name, string guid) : base(DatabaseHelper.ConditionDefinitions.ConditionHeraldOfBattle, name, guid)
         {
-            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassRageClassConditionTitle";
-            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassRageClassConditionDescription";
+            Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassRageClassBearConditionTitle";
+            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassRageClassBearConditionDescription";
 
             //Resitance to all damage so as not to straight copy Totem bear :)
             Definition.SetAllowMultipleInstances(false);
@@ -414,6 +531,7 @@ namespace SolastaAHBarbarianClass
             var strengthSaveAffinityGroup = new SavingThrowAffinityGroup();
             strengthSaveAffinityGroup.affinity = RuleDefinitions.CharacterSavingThrowAffinity.Advantage;
             strengthSaveAffinityGroup.abilityScoreName = "Strength";
+            Definition.AffinityGroups.Add(strengthSaveAffinityGroup);
         }
 
         public static FeatureDefinitionSavingThrowAffinity CreateAndAddToDB(string name, string guid)
@@ -464,4 +582,70 @@ namespace SolastaAHBarbarianClass
         public static FeatureDefinitionAttackModifier RageClassDamageBonusAttackLevel9Modifier
             = CreateAndAddToDB(RageClassDamageBonusAttackModifierName, RageClassDamageBonusAttackModifierNameGuid);
     }
+
+    //internal class AHBarbarianClassBuilder2 : CharacterClassDefinitionBuilder
+    //{
+    //    const string AHBarbarianClassName = "AHBarbarianClass2";
+    //    const string AHBarbarianClassNameGuid = "f32b88a0-2354-4a0d-aafa-5118d9cc7501";
+    //    const string AHBarbarianClassSubclassesGuid = "e11377bc-5a49-42a9-be0e-b19645a88935";
+
+    //    protected AHBarbarianClassBuilder2(string name, string guid) : base(name, guid)
+    //    {
+    //        CharacterClassDefinitionBuilder characterClassDefinitionBuilder = new CharacterClassDefinitionBuilder(AHBarbarianClassName, AHBarbarianClassNameGuid);
+    //        characterClassDefinitionBuilder.SetHitDice(RuleDefinitions.DieType.D2);
+    //        characterClassDefinitionBuilder.AddPersonality(DatabaseHelper.PersonalityFlagDefinitions.GpCombat, 3);
+    //        characterClassDefinitionBuilder.AddPersonality(DatabaseHelper.PersonalityFlagDefinitions.GpExplorer, 1);
+    //        characterClassDefinitionBuilder.AddPersonality(DatabaseHelper.PersonalityFlagDefinitions.Normal, 3);
+    //        characterClassDefinitionBuilder.SetIngredientGatheringOdds(5);
+    //        characterClassDefinitionBuilder.SetBattleAI(DatabaseHelper.DecisionPackageDefinitions.DefaultMeleeWithBackupRangeDecisions);
+    //        characterClassDefinitionBuilder.SetAnimationId(AnimationDefinitions.ClassAnimationId.Fighter);
+    //        characterClassDefinitionBuilder.SetAbilityScorePriorities("Strength", "Constitution", "Dexterity", "Wisdom", "Charisma", "Intelligence");
+    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.Athletics);
+    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.Acrobatics);
+    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.AnimalHandling);
+    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.Perception);
+    //        characterClassDefinitionBuilder.AddSkillPreference(DatabaseHelper.SkillDefinitions.Survival);
+    //        characterClassDefinitionBuilder.AddFeatPreference(DatabaseHelper.FeatDefinitions.RushToBattle);
+    //        characterClassDefinitionBuilder.AddFeatPreference(DatabaseHelper.FeatDefinitions.EagerForBattle);
+    //        characterClassDefinitionBuilder.AddFeatPreference(DatabaseHelper.FeatDefinitions.FollowUpStrike);
+    //        characterClassDefinitionBuilder.SetPictogram(DatabaseHelper.CharacterClassDefinitions.Fighter.ClassPictogramReference);
+    //        GuiPresentationBuilder guiPresentationBuilder = new GuiPresentationBuilder("Class/&AHBarbarianClassDescription", "Class/&AHBarbarianClassTitle");
+    //        guiPresentationBuilder.SetSortOrder(1);
+    //        guiPresentationBuilder.SetSpriteReference(new AssetReferenceSprite(DatabaseHelper.CharacterClassDefinitions.Fighter.GuiPresentation.SpriteReference.AssetGUID));
+    //        characterClassDefinitionBuilder.SetGuiPresentation(guiPresentationBuilder.Build());
+    //        List<CharacterClassDefinition.HeroEquipmentOption> list = new List<CharacterClassDefinition.HeroEquipmentOption>();
+    //        CharacterClassDefinition.HeroEquipmentOption item = EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Greataxe, EquipmentDefinitions.OptionWeaponMartialMeleeChoice, 1);
+    //        list.Add(item);
+    //        characterClassDefinitionBuilder.AddEquipmentRow(list);
+    //        List<CharacterClassDefinition.HeroEquipmentOption> list2 = new List<CharacterClassDefinition.HeroEquipmentOption>();
+    //        List<CharacterClassDefinition.HeroEquipmentOption> list3 = new List<CharacterClassDefinition.HeroEquipmentOption>();
+    //        list2.Add(EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Handaxe, EquipmentDefinitions.OptionWeaponSimpleChoice, 2));
+    //        list3.Add(EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Mace, EquipmentDefinitions.OptionWeaponSimpleChoice, 1));
+    //        characterClassDefinitionBuilder.AddEquipmentRow(list2, list3);
+    //        characterClassDefinitionBuilder.AddEquipmentRow(new List<CharacterClassDefinition.HeroEquipmentOption>
+    //        {
+    //            EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Javelin, EquipmentDefinitions.OptionWeaponSimpleChoice, 4),
+    //            EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.ExplorerPack, EquipmentDefinitions.OptionStarterPack, 1)
+    //        });
+    //        characterClassDefinitionBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyClericArmor, 1);
+    //        characterClassDefinitionBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyFighterWeapon, 1);
+    //        characterClassDefinitionBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionProficiencys.ProficiencyFighterSavingThrow, 1);
+    //        characterClassDefinitionBuilder.AddFeatureAtLevel(AHBarbarianClassSkillPointPoolBuilder.AHBarbarianClassSkillPointPool, 1);
+            
+    //        var subclassChoicesGuiPresentation = new GuiPresentation();
+    //        subclassChoicesGuiPresentation.Title = "Feature/&AHBarbarianSubclassPathTitle";
+    //        subclassChoicesGuiPresentation.Description = "Class/&AHBarbarianSubclassPathDescription";
+    //        FeatureDefinitionSubclassChoice featureDefinitionSubclassChoice = this.BuildSubclassChoice(3, "Path", false, "SubclassChoiceBarbarianSpecialistArchetypes", subclassChoicesGuiPresentation, AHBarbarianClassSubclassesGuid);
+    //        CharacterSubclassDefinition characterSubclassDefinition = AHBarbarianSubClassPathOfTheBear.Build();
+    //        featureDefinitionSubclassChoice.Subclasses.Add(characterSubclassDefinition.Name);
+
+    //        //TODO level 3 and up features
+    //    }
+
+    //    public static void BuildAndAddClassToDB()
+    //    {
+    //        var barbarianClass = new AHBarbarianClassBuilder2(AHBarbarianClassName, AHBarbarianClassNameGuid).AddToDB();
+
+    //    }
+    //}
 }

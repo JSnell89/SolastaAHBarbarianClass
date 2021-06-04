@@ -1,14 +1,30 @@
-Subclass/&RageWarriorFighterSubclassTitle Rage Warrior
-Subclass/&RageWarriorFighterSubclassDescription The Rage Warrior uses their primal fury to shrug off blows of their opponents.  They can enter a rage once per short rest as well as attack recklessly.
-Feature/&RageClassPowerTitle Rage
-Feature/&RageClassPowerDescription You get one rage per short rest.  As a bonus action you can enter a rage for one minute and gain the following: Advantage on Strength checks and Strength saving throws, a bonus to damage rolls of +2, and resistance to bludgeoning, piercing, and slashing damage.
-Feature/&RageClassConditionTitle	Raging
-Feature/&RageClassConditionDescription While in a rage you gain the following: Advantage on Strength checks and Strength saving throws, a bonus to damage rolls of +2, and resistance to bludgeoning, piercing, and slashing damage.
-Feature/&RageClassStrengthSavingThrowAffinityTitle Rage strength save advantage
-Feature/&RageClassStrengthSavingThrowAffinityDescription You get advantage on strength saves while raging
-Feature/&RageClassDamageBonusAttackModifierTitle Rage damage
-Feature/&RageClassDamageBonusAttackModifierDescription Add +2 damage to your attacks while raging.
-Feature/&FastMovementMovementAffinityTitle Fast movement
-Feature/&FastMovementMovementAffinityDescription Your speed increases by 10 feet
-Feature/&FastMovementMovementAffinityTitle Fast movement
-Feature/&FastMovementMovementAffinityDescription Your speed increases by 10 feet
+Class/&AHBarbarianClassTitle Barbarian
+Class/&AHBarbarianClassDescription Barbarian rage machine
+Subclass/&AHBarbarianSubclassPathTitle	Path
+Subclass/&AHBarbarianSubclassPathDescription	Select a barbarian path
+Subclass/&AHBarbarianSubclassPathOfTheBearTitle	Path of the bear
+Subclass/&AHBarbarianSubclassPathOfTheBearDescription You follow the path of the bear to mightily stand against all foes and resist all damage while raging.
+Feature/&AHBarbarianClassSkillPointPoolTitle	Barbarian skills
+Feature/&AHBarbarianClassSkillPointPoolDescription	Barbarian can be proficient in two of Animal Handling, Athletics, Intimidation, Nature, Perception, or Survival
+Feature/&AHBarbarianClassAHBarbarianClassDangerSenseDexteritySavingThrowAffinityTitle	Danger Sense
+Feature/&AHBarbarianClassAHBarbarianClassDangerSenseDexteritySavingThrowAffinityDescription	Advantage on Dexterity Saving Throws.
+Feature/&AHBarbarianClassFastMovementMovementAffinityTitle	Fast movement
+Feature/&AHBarbarianClassFastMovementMovementAffinityDescription Your walking speed increases 10 ft
+Feature/&AHBarbarianClassRageClassPowerTitle	Rage
+Feature/&AHBarbarianClassRageClassPowerDescription You start with two rages per long rest.  As a bonus action you can enter a rage for one minute and gain the following: Advantage on Strength checks and Strength saving throws, a bonus to damage rolls of +2, and resistance to bludgeoning, piercing, and slashing damage.  Your umber of rages per long rest increases to 3 at level 3 and 4 at level 6.  The damage bonus becomes +3 at level 9.
+Feature/&AHBarbarianClassPathOfBearRageClassPowerTitle Bear Path Rage
+Feature/&AHBarbarianClassPathOfBearRageClassPowerDescription You get 3 rages per long rest.  While in a Bear rage you gain the following: Advantage on Strength checks and Strength saving throws, a bonus to damage rolls of +2 (+3 at level 9), and resistance to all damage.
+Feature/&AHBarbarianClassPathOfBearRageClassPowerLevel6Title Bear Path Level 6
+Feature/&AHBarbarianClassPathOfBearRageClassPowerLevel6Description Your carrying capacity doubles at all times.  You get 4 rages per long rest.  While in a Bear rage you gain the following: Advantage on Strength checks and Strength saving throws, a bonus to damage rolls of +2 (+3 at level 9), and resistance to all damage.
+Feature/&AHBarbarianClassPathOfBearRageClassPowerLevel9Title Bear Path Level 9
+Feature/&AHBarbarianClassPathOfBearRageClassPowerLevel9Description You get 4 rages per long rest.  While in a Bear rage you gain the following: Advantage on Strength checks and Strength saving throws, a bonus to damage rolls of +3, and resistance to all damage.
+Feature/&AHBarbarianClassRageClassConditionTitle	Raging
+Feature/&AHBarbarianClassRageClassConditionDescription While in a rage you gain the following: Advantage on Strength checks and Strength saving throws, a bonus to damage rolls of +2 (+3 at level 9), and resistance to bludgeoning, piercing, and slashing damage.
+Feature/&AHBarbarianClassRageClassBearConditionTitle Raging (Bear)
+Feature/&AHBarbarianClassRageClassBearConditionDescription While in a Bear rage you gain the following: Advantage on Strength checks and Strength saving throws, a bonus to damage rolls of +2 (+3 at level 9), and resistance to all damage.
+Feature/&AHBarbarianClassRageClassStrengthSavingThrowAffinityTitle	Strength Save Advantage
+Feature/&AHBarbarianClassRageClassStrengthSavingThrowAffinityDescription Advantage on Strength saves due to a condition (e.g. Raging)
+Feature/&AHBarbarianClassRageClassDamageBonusAttackModifierTitle Rage Damage
+Feature/&AHBarbarianClassRageClassDamageBonusAttackModifierDescription	Rage damage bonus of +2 (+3 at level 9)
+Feature/&AHBarbarianClassInitiativeAdvantageTitle Feral Instinct
+Feature/&AHBarbarianClassInitiativeAdvantageDescription Your instincts are so honed that you have advantage on initiative rolls.
