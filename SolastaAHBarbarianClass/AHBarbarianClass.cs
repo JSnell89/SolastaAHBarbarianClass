@@ -80,7 +80,22 @@ namespace SolastaAHBarbarianClass
             Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionAttributeModifiers.AttributeModifierMartialChampionImprovedCritical, 9)); //Ideally we could add extra damage on crit but I don't think that's possible
             //Subclass feature at level 10
 
-            
+            //Above level 10 features
+            //Level 11 Relentless Rage
+            //Level 12 Rage use increase
+            Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 12));
+            //Level 13 Brutal Critical (2 dice)
+            //Level 14 Path feature
+            //Level 15 Persistent Rage
+            Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 16));
+            //Level 16 Rage damage increase
+            //Level 16 Brutal Critical (3 dice)
+            //Level 17 Rage use increase
+            //Level 18 Indomitable Might
+            Definition.FeatureUnlocks.Add(new FeatureUnlockByLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 19));
+            //Level 20 	Primal Champion
+            //Level 20 Unlimited Rages
+
         }
 
         public static void BuildAndAddClassToDB()
