@@ -28,8 +28,7 @@ Feature/&AHBarbarianClassRageClassDamageBonusAttackModifierTitle Rage Damage
 Feature/&AHBarbarianClassRageClassDamageBonusAttackModifierDescription	Rage damage bonus of +2 (+3 at level 9)
 Feature/&AHBarbarianClassInitiativeAdvantageTitle Feral Instinct
 Feature/&AHBarbarianClassInitiativeAdvantageDescription Your instincts are so honed that you have advantage on initiative rolls.
-Feature/&AHBarbarianClassUnarmoredDefenseTitle	Unarmored Defense
-Feature/&AHBarbarianClassUnarmoredDefenseDescription	You gain +3 to your armor class when you aren't wearing armor or using a shield.  (Mod note doing this based on Constitution or allowing a shield doesn't seem possible at the moment.)
+Feature/&AHBarbarianClassUnarmoredDefenseTitle	Fighting Style: Unarmored Defense
 Stage/&SubclassSelectionStagePathHeader Barbarian Paths
 Stage/&SubclassSelectionStagePathTitle Barbarian Path
 Stage/&SubclassSelectionStagePathFeatures Path features
