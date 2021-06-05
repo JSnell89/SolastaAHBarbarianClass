@@ -185,31 +185,27 @@ namespace SolastaAHBarbarianClass
         public static FeatureDefinitionSavingThrowAffinity AHBarbarianClassDangerSenseDexteritySavingThrowAffinity = CreateAndAddToDB(AHBarbarianClassDangerSenseDexteritySavingThrowAffinityName, AHBarbarianClassDangerSenseDexteritySavingThrowAffinityNameGuid);
     }
 
-    internal class AHBarbarianClassUnarmoredDefenseBuilder : BaseDefinitionBuilder<FeatureDefinitionAttributeModifier>
+    internal class AHBarbarianClassUnarmoredDefenseBuilder : BaseDefinitionBuilder<FeatureDefinitionFightingStyleChoice>
     {
         const string AHBarbarianClassUnarmoredDefenseName = "AHBarbarianClassUnarmoredDefenseAttributeModifier";
         const string AHBarbarianClassUnarmoredDefenseNameGuid = "8bd48db9-47b9-41ab-a033-941ff09c83a3";
 
-        protected AHBarbarianClassUnarmoredDefenseBuilder(string name, string guid) : base(DatabaseHelper.FeatureDefinitionAttributeModifiers.AttributeModifierArmorPlus3, name, guid)
+        protected AHBarbarianClassUnarmoredDefenseBuilder(string name, string guid) : base(DatabaseHelper.FeatureDefinitionFightingStyleChoices.FightingStyleFighter, name, guid)
         {
             Definition.GuiPresentation.Title = "Feature/&AHBarbarianClassUnarmoredDefenseTitle";
-            Definition.GuiPresentation.Description = "Feature/&AHBarbarianClassUnarmoredDefenseDescription";
+            Definition.GuiPresentation.Description = SolastaUnarmoredDefense.FightingStyles.UnarmoredDefense_Constitution.GuiPresentation.Description;
 
-            //Doesn't seem to be anything that can modify AC by an attribute
-            //Also doesn't seem to be something that will only apply when no armor but still allow shields
-            Definition.SetModifiedAttribute("ArmorClass");
-            Definition.SetModifierType2(FeatureDefinitionAttributeModifier.AttributeModifierOperation.Additive);
-            Definition.SetModifierValue(3);
-            Definition.SetSituationalContext(RuleDefinitions.SituationalContext.NotWearingArmorOrShield);
+            Definition.FightingStyles.Clear();
+            Definition.FightingStyles.Add(SolastaUnarmoredDefense.FightingStyles.UnarmoredDefense_Constitution.Name);
         }
 
-        public static FeatureDefinitionAttributeModifier CreateAndAddToDB(string name, string guid)
+        public static FeatureDefinitionFightingStyleChoice CreateAndAddToDB(string name, string guid)
             => new AHBarbarianClassUnarmoredDefenseBuilder(name, guid).AddToDB();
 
-        public static FeatureDefinitionAttributeModifier AHBarbarianClassUnarmoredDefense = CreateAndAddToDB(AHBarbarianClassUnarmoredDefenseName, AHBarbarianClassUnarmoredDefenseNameGuid);
+        public static FeatureDefinitionFightingStyleChoice AHBarbarianClassUnarmoredDefense = CreateAndAddToDB(AHBarbarianClassUnarmoredDefenseName, AHBarbarianClassUnarmoredDefenseNameGuid);
     }
 
-    
+
 
     internal class AHBarbarianClassFastMovementMovementAffinityBuilder : BaseDefinitionBuilder<FeatureDefinitionMovementAffinity>
     {
