@@ -2,7 +2,7 @@
 	"Id": "SolastaAHBarbarianClass",
 	"DisplayName": "SolastaAHBarbarianClass",
 	"Author": "jsnell89",
-	"Version": "0.0.1",
+	"Version": "0.0.3",
 	"ManagerVersion": "0.23.4",
 	"Requirements": [ "SolastaModApi", "SolastaUnarmoredDefense" ],
 	"LoadAfter": [ "SolastaModApi" ],

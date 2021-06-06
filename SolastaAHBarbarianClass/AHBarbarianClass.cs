@@ -104,6 +104,10 @@ namespace SolastaAHBarbarianClass
             //Might need to add subclasses after the class is in the DB?
             CharacterSubclassDefinition characterSubclassDefinition = AHBarbarianSubClassPathOfTheBear.Build();
             BarbarianFeatureDefinitionSubclassChoice.Subclasses.Add(characterSubclassDefinition.Name);
+            CharacterSubclassDefinition characterSubclassDefinitionFrenzy = AHBarbarianSubclassPathOfFrenzy.Build();
+            BarbarianFeatureDefinitionSubclassChoice.Subclasses.Add(characterSubclassDefinitionFrenzy.Name);
+            CharacterSubclassDefinition characterSubclassDefinitionReaver = AHBarbarianSubclassPathOfTheReaver.Build();
+            BarbarianFeatureDefinitionSubclassChoice.Subclasses.Add(characterSubclassDefinitionReaver.Name);
         }
 
         private static FeatureDefinitionSubclassChoice BarbarianFeatureDefinitionSubclassChoice;
@@ -462,9 +466,6 @@ namespace SolastaAHBarbarianClass
             Definition.Features.Add(AHBarbarianClassRageClassDamageBonusAttackModifierBuilder.RageClassDamageBonusAttackModifier);
             Definition.SetDurationType(RuleDefinitions.DurationType.Minute);
             Definition.SetDurationParameter(1);
-
-
-            Definition.SetDurationType(RuleDefinitions.DurationType.Turn);
         }
 
         public static ConditionDefinition CreateAndAddToDB(string name, string guid)
@@ -506,9 +507,6 @@ namespace SolastaAHBarbarianClass
             Definition.Features.Add(AHBarbarianClassRageClassDamageBonusAttackModifierBuilder.RageClassDamageBonusAttackModifier);
             Definition.SetDurationType(RuleDefinitions.DurationType.Minute);
             Definition.SetDurationParameter(1);
-
-
-            Definition.SetDurationType(RuleDefinitions.DurationType.Turn);
         }
 
         public static ConditionDefinition CreateAndAddToDB(string name, string guid)
@@ -554,9 +552,6 @@ namespace SolastaAHBarbarianClass
             Definition.Features.Add(AHBarbarianClassRageClassDamageBonusAttackModifierLevel9Builder.RageClassDamageBonusAttackLevel9Modifier);
             Definition.SetDurationType(RuleDefinitions.DurationType.Minute);
             Definition.SetDurationParameter(1);
-
-
-            Definition.SetDurationType(RuleDefinitions.DurationType.Turn);
         }
 
         public static ConditionDefinition CreateAndAddToDB(string name, string guid)
