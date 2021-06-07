@@ -71,7 +71,7 @@ Feature/&AHBarbarianPathOfTheReaverRageClassConditionLevel9Description While in 
 Feature/&AHBarbarianPathOfTheReaverExtraAttackOnKillTitle Zealous Execution
 Feature/&AHBarbarianPathOfTheReaverExtraAttackOnKillDescription Felling an enemy gives you extra zeal and energy, you can attack again after landing a killing blow.
 Feature/&AHBarbarianPathOfTheReaverDeathsFearPowerTitle Death's Fear
-Feature/&AHBarbarianPathOfTheReaverDeathsFearPowerDescription Once per long rest, you can put the fear of death within your enemies.  All enemies withing range 6 (30 ft) must must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Strength modifier) or be frightened of you for one minute (with additional saves at the end of their turns). 
+Feature/&AHBarbarianPathOfTheReaverDeathsFearPowerDescription Once per long rest, you can put the fear of death into your enemies.  All enemies within range 6 (30 ft) must must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Strength modifier) or be frightened of you for one minute (with additional saves at the end of their turns). 
 Feature/&AHBarbarianPathOfTheReaverExtraDamageTitle Death Reaver Damage
 Feature/&AHBarbarianPathOfTheReaverExtraDamageDescription Do an extra d4 necrotic damage on each hit.
 Feature/&AHBarbarianPathOfTheReaverExtraDamageLevel6Title Death Reaver Damage
