@@ -48,7 +48,8 @@ namespace SolastaAHBarbarianClass
             this.AddEquipmentRow(new List<CharacterClassDefinition.HeroEquipmentOption>
             {
                 EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.Javelin, EquipmentDefinitions.OptionWeapon, 4),
-                EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.ExplorerPack, EquipmentDefinitions.OptionStarterPack, 1)
+                EquipmentOptionsBuilder.Option(DatabaseHelper.ItemDefinitions.ExplorerPack, EquipmentDefinitions.OptionStarterPack, 1),
+                EquipmentOptionsBuilder.Option(AHBarbarianHideClothesItemBuilder.HideClothes, EquipmentDefinitions.OptionStarterPack, 1),
             });
 
             Definition.FeatureUnlocks.Clear();
@@ -625,5 +626,28 @@ namespace SolastaAHBarbarianClass
 
         public static FeatureDefinitionAttackModifier RageClassDamageBonusAttackLevel9Modifier
             = CreateAndAddToDB(RageClassDamageBonusAttackModifierName, RageClassDamageBonusAttackModifierNameGuid);
+    }
+
+    internal class AHBarbarianHideClothesItemBuilder : BaseDefinitionBuilder<ItemDefinition>
+    {
+        const string AHBarbarianHideClothesItemName = "AHBarbarianHideClothesItem";
+        const string AHBarbarianHideClothesItemNameGuid = "27d048b0-462f-470c-9897-210cd4c98cf9";
+
+        protected AHBarbarianHideClothesItemBuilder(string name, string guid) : base(DatabaseHelper.ItemDefinitions.HideArmor, name, guid)
+        {
+            Definition.GuiPresentation.Title = "Item/&AHBarbarianHideClothesItemTitle";
+            Definition.GuiPresentation.Description = "Item/&AHBarbarianHideClothesItemDescription";
+
+            Definition.ArmorDescription.SetArmorType("ClothesType");
+            Definition.ArmorDescription.SetArmorClassValue(10);
+            Definition.ArmorDescription.SetMaxDexterityBonus(-1);
+            Definition.ArmorDescription.SetRequiresMinimalStrength(false);
+        }
+
+        public static ItemDefinition CreateAndAddToDB(string name, string guid)
+            => new AHBarbarianHideClothesItemBuilder(name, guid).AddToDB();
+
+        public static ItemDefinition HideClothes
+            = CreateAndAddToDB(AHBarbarianHideClothesItemName, AHBarbarianHideClothesItemNameGuid);
     }
 }

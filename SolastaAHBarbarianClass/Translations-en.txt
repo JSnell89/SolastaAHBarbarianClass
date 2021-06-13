@@ -80,3 +80,5 @@ Feature/&AHBarbarianPathOfTheReaverExtraDamageLevel10Title Death Reaver Damage
 Feature/&AHBarbarianPathOfTheReaverExtraDamageLevel10Description Do an extra d8 necrotic damage on each hit.
 Feedback/&AdditionalDamageDeathsTouchLine Death's touch does additional necrotic damage!
 Feedback/&AdditionalDamageDeathsTouchFormat Death's touch!
+Item/&AHBarbarianHideClothesItemTitle	Barbarian hides
+Item/&AHBarbarianHideClothesItemDescription	Hide clothing for the Barbarian.  Uses the Hide Armor look but acts as clothes and still uses the Barbarian Unarmored Defense feature.
